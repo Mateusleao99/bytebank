@@ -1,32 +1,26 @@
-import { NovatransferenciaComponent } from './nova-transferencia/nova-transferencia.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import localePt from '@angular/common/locales/pt';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { NovatransferenciaComponent } from './nova-transferencia/nova-transferencia.component';
 import { ExtratoComponent } from './extrato/extrato.component';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt'
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NovatransferenciaComponent,
-    ExtratoComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule
-  ],
+  declarations: [AppComponent, NovatransferenciaComponent, ExtratoComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt' },
+    { provide: LOCALE_ID, useValue: 'pt' },
     {
       provide: DEFAULT_CURRENCY_CODE,
-      useValue:'BRL',
-    }
+      useValue: 'BRL',
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
