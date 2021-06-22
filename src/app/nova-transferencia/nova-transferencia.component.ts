@@ -1,6 +1,7 @@
 import { Transferencia } from './../models/transferencia.model';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TransferenciaService } from './../services/transferencia/transferencia.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nova-transferencia',
@@ -13,19 +14,26 @@ export class NovatransferenciaComponent {
   valor: number = 0;
   destino: number = 0;
 
-  constructor( private transferenciaService: TransferenciaService){
-
-  }
+  constructor(
+    private transferenciaService: TransferenciaService,
+    private router: Router,
+  ) {}
 
   transferir() {
     console.log('Solicitada nova transferencia ');
-    const valorEmitir: Transferencia = { valor: this.valor, destino: this.destino };
-    
-    this.transferenciaService.adicionar(valorEmitir).subscribe(resultado => {
-      console.log(resultado);
-      this.limparCampo();
-    },
-    error => console.error(error))
+    const valorEmitir: Transferencia = {
+      valor: this.valor,
+      destino: this.destino,
+    };
+
+    this.transferenciaService.adicionar(valorEmitir).subscribe(
+      (resultado) => {
+        console.log(resultado);
+        this.limparCampo();
+        this.router.navigateByUrl("/extrato");
+      },
+      (error) => console.error(error)
+    );
   }
 
   limparCampo() {
